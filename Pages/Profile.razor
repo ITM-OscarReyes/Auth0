@@ -1,59 +1,134 @@
 ﻿@page "/Profile"
 @inject TokenProvider tokenProvider
 @attribute [Authorize]
+@using System.Security.Claims
+@using System.Net.Http
+@using System.Net.Http.Headers
+@using System.Text
+@using System.Text.Json
 
-<PageTitle>Profile</PageTitle>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="row">
-            <h2>Profile</h2>
-
-            <div class="col-md-2">
-                <img src="@Picture"
-                     alt="" class="img-rounded img-responsive" />
+<div class="container py-4">
+    <div class="card shadow-sm rounded p-4" style="max-width: 900px; margin:auto;">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="d-flex align-items-center">
+                <img src="@Picture" class="rounded-circle me-3" alt="Profile Picture" width="80" height="80" />
+                <div>
+                    <h4 class="mb-1">@FullName</h4>
+                    <p class="text-muted mb-0">@EmailAddress</p>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h3>@Username</h3>
-                <p>
-                    <i class="bi bi-envelope"></i> @EmailAddress
-                </p>
-                <p>
-                    <strong>Id Token</strong>: @IdToken
-                </p>
-            </div>
+            @if (!IsEditing)
+            {
+                <button class="btn btn-primary" @onclick="EnableEdit">Editar</button>
+            }
+            else
+            {
+                <button class="btn btn-success" @onclick="SaveChanges">Guardar</button>
+            }
         </div>
+
+        <form class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Nombre completo</label>
+                <input type="text" class="form-control" @bind="FullName" readonly="@( !IsEditing )" />
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Nickname</label>
+                <input type="text" class="form-control" @bind="Nickname" readonly="@( !IsEditing )" />
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Tipo de documento</label>
+                <input type="text" class="form-control" @bind="TipoDocumento" readonly="@( !IsEditing )" />
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Número de documento</label>
+                <input type="text" class="form-control" @bind="NumeroDocumento" readonly="@( !IsEditing )" />
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Dirección</label>
+                <input type="text" class="form-control" @bind="Direccion" readonly="@( !IsEditing )" />
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Teléfono</label>
+                <input type="text" class="form-control" @bind="Telefono" readonly="@( !IsEditing )" />
+            </div>
+        </form>
     </div>
 </div>
 
 @code {
-
     [CascadingParameter]
     public Task<AuthenticationState> AuthenticationStateTask { get; set; }
-    private string Username = "";
+
+    private bool IsEditing = false;
+    private string FullName = "";
     private string EmailAddress = "";
     private string Picture = "";
-    private string IdToken = "";
+    private string Nickname = "";
+    private string TipoDocumento = "";
+    private string NumeroDocumento = "";
+    private string Direccion = "";
+    private string Telefono = "";
+    private string UserId = "";
 
     protected override async Task OnInitializedAsync()
     {
         var state = await AuthenticationStateTask;
+        var user = state.User;
 
-        Username = state.User.Identity.Name ?? string.Empty;
-        EmailAddress = state.User.Claims
-            .Where(c => c.Type.Equals(System.Security.Claims.ClaimTypes.Email))
-            .Select(c => c.Value)
-            .FirstOrDefault() ?? string.Empty;
+        var ns = "https://myapp.com/";
 
-        Picture = state.User.Claims
-            .Where(c => c.Type.Equals("picture"))
-            .Select(c => c.Value)
-            .FirstOrDefault() ?? string.Empty;
+        EmailAddress = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value ?? "demo@email.com";
+        FullName = user.Claims.FirstOrDefault(c => c.Type == ns + "full_name")?.Value ?? user.Identity?.Name ?? "";
+        Nickname = user.Claims.FirstOrDefault(c => c.Type == ns + "nickname")?.Value ?? "";
+        TipoDocumento = user.Claims.FirstOrDefault(c => c.Type == ns + "tipoDocumento")?.Value ?? "";
+        NumeroDocumento = user.Claims.FirstOrDefault(c => c.Type == ns + "numeroDocumento")?.Value ?? "";
+        Direccion = user.Claims.FirstOrDefault(c => c.Type == ns + "direccion")?.Value ?? "";
+        Telefono = user.Claims.FirstOrDefault(c => c.Type == ns + "telefono")?.Value ?? "";
+        Picture = user.Claims.FirstOrDefault(c => c.Type == ns + "picture")?.Value ?? "https://img.freepik.com/vector-premium/icono-perfil-avatar_188544-4755.jpg";
 
+        UserId = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "";
+    }
 
-        IdToken = tokenProvider.IdToken;
+    private void EnableEdit()
+    {
+        IsEditing = true;
+    }
 
-        await base.OnInitializedAsync();
+    private async Task SaveChanges()
+    {
+        await SaveProfileToAuth0();
+        IsEditing = false;
+    }
+
+    private async Task SaveProfileToAuth0()
+    {
+        var managementToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Im1zbFBXWFYtWFN3bUVVSndqUVFQcSJ9.eyJpc3MiOiJodHRwczovL2Rldi0xeHM2cmcyY2M2NmtqY241LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJxMmVNZHlOMXdkaGpsTTlnZWpnMnpKT0FvSk9YNkJaWkBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9kZXYtMXhzNnJnMmNjNjZramNuNS51cy5hdXRoMC5jb20vYXBpL3YyLyIsImlhdCI6MTc2MDgyNjUzOSwiZXhwIjoxNzYwOTEyOTM5LCJzY29wZSI6InJlYWQ6dXNlcnMgdXBkYXRlOnVzZXJzIGRlbGV0ZTp1c2VycyBjcmVhdGU6dXNlcnMgcmVhZDp1c2Vyc19hcHBfbWV0YWRhdGEgdXBkYXRlOnVzZXJzX2FwcF9tZXRhZGF0YSBkZWxldGU6dXNlcnNfYXBwX21ldGFkYXRhIGNyZWF0ZTp1c2Vyc19hcHBfbWV0YWRhdGEiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMiLCJhenAiOiJxMmVNZHlOMXdkaGpsTTlnZWpnMnpKT0FvSk9YNkJaWiJ9.vvlBFje_pKbnUuueif66m7i5tOYYcAZjNkm54JVkfZgz9bWJTiz_er1DQU3SBIzwqz_vmH_TH0zEaAmjfdPFOyx1sGXBCX0Dq33pRhKW_ToXxB9u0J4QMoMalh6l2rMCqy8y7V4B6Bcl7dUKe1HFdTG-WBYkwBp9VM6G-dAQjx13mu9CnjuVaI2xzqiGRKpA-dkDjC2tMHDA7a1A9b3RHs44MRGaSK0WWCQs9ok76r2Kxx3ygsiygDKX8mlrHqlwGYgkocusrpZTm_Iq1DK5A3wXpc8kMWUjltHqATVL5elkCkWdA72aFgLIM0PoIzt0T-uLs_ZDoqjSv6MLlb0Zig";
+
+        using var client = new HttpClient();
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", managementToken);
+
+        var payload = new
+        {
+            user_metadata = new
+            {
+                full_name = FullName ?? "",
+                nickname = Nickname ?? "",
+                tipoDocumento = TipoDocumento ?? "",
+                numeroDocumento = string.IsNullOrWhiteSpace(NumeroDocumento) ? null : NumeroDocumento,
+                direccion = Direccion ?? "",
+                telefono = new { number = Telefono ?? "" }
+            }
+        };
+
+        var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+
+        var response = await client.PatchAsync($"https://dev-1xs6rg2cc66kjcn5.us.auth0.com/api/v2/users/auth0|68f2d9316ccd5897f9a11dfd", content);
+        response.EnsureSuccessStatusCode();
     }
 }
-

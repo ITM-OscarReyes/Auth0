@@ -1,0 +1,117 @@
+﻿/* Fondo del body */
+    body {
+        background: linear-gradient(120deg, #e0ebff, #f7f9ff);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #333333;
+    }
+
+/* Contenedor general del perfil */
+    .profile-container {
+        max-width: 900px;
+        margin: 100px auto;
+        padding: 40px 30px;
+        background-color: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .profile-container:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+/* Cabecera de perfil */
+    .profile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 40px;
+    }
+
+    .profile-header .profile-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .profile-picture {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border: 4px solid #007bff;
+        border-radius: 50%;
+        margin-right: 20px;
+        transition: transform 0.3s ease;
+    }
+
+    .profile-picture:hover {
+        transform: scale(1.05);
+    }
+
+/* Nombre y email */
+    .profile-header h4 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .profile-header p {
+        margin: 5px 0 0 0;
+        color: #777777;
+    }
+
+/* Campos del formulario */
+    .form-control, .form-select {
+        border-radius: 12px;
+        padding: 12px 15px;
+        border: 1px solid #d4d9e2;
+        transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    }
+
+    .form-control:focus, .form-select:focus {
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.25);
+        border-color: #007bff;
+    }
+
+/* Botones */
+    .btn {
+        border-radius: 12px;
+        padding: 10px 20px;
+        font-weight: 600;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0063d1;
+        border-color: #0063d1;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+    }
+
+/* Formulario */
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .form-row .col-md-6 {
+        flex: 1 1 48%;
+    }

@@ -1,0 +1,89 @@
+﻿html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #D4D4D4 !important;
+}
+
+/* Contenedor principal centrado */
+    .contenedor-principal {
+        width: 100%;
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+
+/* Banner */
+    .banner-itm {
+        background: linear-gradient(180deg, #003285, #6faee9);
+        padding: 40px 20px 50px 20px;
+        color: white;
+        max-height: 350px;
+    }
+
+/* Sedes */
+    .sede-card {
+        overflow: hidden;
+        border-radius: 10px;
+        background-color: #002b6f;
+        transition: transform 0.3s ease-in-out;
+        cursor: pointer;
+    }
+
+    .sede-card img {
+        border-radius: 10px 10px 0 0;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+    }
+
+    .sede-card:hover img {
+        transform: scale(1.08);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .sede-info {
+        background-color: #002b6f;
+        padding: 8px 0;
+        border-radius: 0 0 10px 10px;
+    }
+
+    .sede-info p {
+        color: #ffffff;
+        font-size: 0.95rem;
+        margin: 5px;
+    }
+
+/* Tarjetas informativas */
+    .card {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+/* Botones */
+    .btn {
+        border-radius: 25px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .btn-primary {
+        background-color: #004b93;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #00a2ff;
+        transform: scale(1.05);
+    }
+
+/* Cuadros especiales */
+    .card.bg-dark {
+        background-color: #525252 !important;
+    }
+
+    .card.bg-primary {
+        background-color: #525252 !important;
+    }

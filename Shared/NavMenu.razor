@@ -1,0 +1,56 @@
+﻿<nav class="navbar navbar-dark navbar-expand-lg fixed-top header-itm">
+    <div class="container">
+        <a class="navbar-brand" href="#">ITM</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <div class="d-block d-lg-flex justify-content-between w-100">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+
+                    <AuthorizeView>
+                        <Authorized>
+                            <li class="nav-item">   
+                                <a class="nav-link active" aria-current="page" href="/profile">Hola @userName!</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/logout">Desconectarse</a>
+                            </li>
+                        </Authorized>
+                        <NotAuthorized>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/login?redirectUri=/">Iniciar Sesión</a>
+                            </li>
+                        </NotAuthorized>
+                    </AuthorizeView>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState>? authenticationState { get; set; }
+
+    public string userName = "Hola";
+   
+    protected override async Task OnInitializedAsync()
+    {
+        if (authenticationState is not null)
+        {
+            var state = await authenticationState;
+
+            userName = state?.User?.Identity?.Name ?? string.Empty;
+        }
+
+        await base.OnInitializedAsync();
+    }
+}
+

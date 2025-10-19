@@ -1,11 +1,114 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>ITM</PageTitle>
 
-<div class="row">
-    <div class="col-md-12">
-        <h2 class="mt-4">Welcome to the Auth0 ASP.NET Core Blazor Starter Project</h2>
-        <p>To follow along in building this sample please <a href="https://auth0.com/docs/quickstart/webapp/aspnet-core-blazor">refer to the Quickstart</a>.</p>
+<div class="contenedor-principal">
+
+    <div class="banner-itm text-center">
+        <h1 class="fw-bold mb-4">Instituto Tecnológico Metropolitano</h1>
+        <div class="row justify-content-center g-3">
+            <div class="col-md-3 col-sm-6">
+                <div class="sede-card">
+                    <img src="https://www.itm.edu.co//wp-content/uploads/2021/08/galeriacastilla.png" alt="Sede Castilla" />
+                    <div class="sede-info text-center"><p class="mb-0">Sede Castilla</p></div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="sede-card">
+                    <img src="https://www.itm.edu.co//wp-content/uploads/2021/08/galeriafloresta.png" alt="Sede Floresta" />
+                    <div class="sede-info text-center"><p class="mb-0">Sede Floresta</p></div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="sede-card">
+                    <img src="https://www.itm.edu.co//wp-content/uploads/2022/02/galeria_c4ta.jpg" alt="Sede Robledo" />
+                    <div class="sede-info text-center"><p class="mb-0">Sede C4TA</p></div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="sede-card">
+                    <img src="https://www.itm.edu.co//wp-content/uploads/2021/08/galeriaRobledo.png" alt="Sede Robledo" />
+                    <div class="sede-info text-center"><p class="mb-0">Sede Robledo</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-1 mt-2">
+        <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm border-0 h-100 text-center p-3">
+                <h5 class="card-title text-primary fw-bold">Agenda Universitaria</h5>
+                <p class="card-text small">Eventos, convocatorias y fechas importantes.</p>
+                <a href="#" class="btn btn-outline-primary btn-sm">Ver más</a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm border-0 h-100 text-center p-3">
+                <h5 class="card-title text-primary fw-bold">Agenda Cultural</h5>
+                <p class="card-text small">Extensión universitaria y actividades culturales.</p>
+                <a href="#" class="btn btn-outline-primary btn-sm">Explorar</a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm border-0 h-100 text-center p-3">
+                <h5 class="card-title text-primary fw-bold">Calendario Académico</h5>
+                <p class="card-text small">Fechas clave del año lectivo y exámenes.</p>
+                <a href="#" class="btn btn-outline-primary btn-sm">Consultar</a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm border-0 h-100 text-center p-3">
+                <h5 class="card-title text-primary fw-bold">Medios</h5>
+                <p class="card-text small">Noticias, radio universitaria y redes sociales.</p>
+                <div class="d-flex justify-content-center gap-3 mt-2">
+                    <a href="#"><i class="bi bi-newspaper fs-4 text-primary"></i></a>
+                    <a href="#"><i class="bi bi-broadcast fs-4 text-primary"></i></a>
+                    <a href="#"><i class="bi bi-play-btn fs-4 text-primary"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-1 mt-2">
+        <div class="col-md-6">
+            <div class="card bg-dark text-white text-center p-4 h-100 shadow-sm">
+                <h5 class="fw-bold mb-2">Rectorado</h5>
+                <p class="mb-0 small">Autoridades, Consejo Superior y Secretarías del ITM</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-primary text-white text-center p-4 h-100 shadow-sm">
+                <div class="row g-0 colores-barra">
+                    <div class="col" style="background-color:#5c0e74; height:8px;"></div>
+                    <div class="col" style="background-color:#0e285e; height:8px;"></div>
+                    <div class="col" style="background-color:#d88900; height:8px;"></div>
+                    <div class="col" style="background-color:#00812b; height:8px;"></div>
+                </div>
+                <p></p>
+                <h5 class="fw-bold mb-2">Facultades</h5>
+                <p class="mb-2 small">Artes y Humanidades, Ingenierias, Ciencias Económicas y Administrativas, Ciencias Exactas</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="mt-2">
+        <h4 class="fw-bold text-uppercase text-dark mb-3">Oferta Académica</h4>
+        <div class="bg-light rounded shadow-sm">
+            <div class="row text-center g-1">
+                <div class="col-md-3 col-sm-6">
+                    <button class="btn btn-primary btn-lg w-100 fw-bold">Pregrado</button>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <button class="btn btn-primary btn-lg w-100 fw-bold">Grado</button>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <button class="btn btn-primary btn-lg w-100 fw-bold">Posgrado</button>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <button class="btn btn-primary btn-lg w-100 fw-bold">Carreras Virtuales</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
